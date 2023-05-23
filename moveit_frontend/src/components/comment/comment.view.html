@@ -1,0 +1,6 @@
+<div class="comment">
+	{{comment.username}} - <b>{{comment.reference}}</b>
+	<span class="date">{{comment.createdAt | date: ('datetimeformat_pipe' | translate)}} </span>
+	<br/>
+	<span class="message">{{comment.message}}</span>
+</div>

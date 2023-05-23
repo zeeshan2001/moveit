@@ -1,0 +1,16 @@
+<div *ngFor='let file of files; let i = index'>
+    <div (click)="clickItem(i, j)" class="list-item" *ngFor='let sheet of file.sheets; let j = index'>
+        <span class="header">
+            {{file.name}}
+        </span><br/>
+        <span class="subheader">
+            {{sheet.name}}
+        </span><br/>
+        <div style="height:5px; width:100%"></div>
+        <span class="description">
+            <i class="fa fa-upload"></i> {{file.createdAt | date: ('dateformat_pipe' | translate)}} 
+            - <i class="fa fa-user"></i> {{file.owner?.firstname}} {{file.owner?.lastname}}
+            <span class="status">{{file.status|translate}}</span>
+        </span>
+    </div>
+</div>

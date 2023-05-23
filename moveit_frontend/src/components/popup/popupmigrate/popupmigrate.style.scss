@@ -1,0 +1,54 @@
+@import '../../../styles';
+
+.btn-danger {
+    background-color: #e74c3c !important;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b !important;
+}
+
+input {
+    text-align: left !important;
+}
+
+.btn-red, .btn-red:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-blue, .btn-blue:hover {
+    background-color: #2980b9;
+    margin-right: 0px;
+}
+
+.btn-option {
+    margin-top: -5px;
+    width: 40px;
+    font-size: 12px;
+}
+
+.arrow-item {
+    background-color: $grey;
+    color: black;
+    height: 40px;
+    width: 100px;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.arrow-item.blue {
+    background-color: $blue !important;
+    color: white;
+}
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+
+.modal-body{
+    height: 60vh;
+    overflow-y: auto;
+}

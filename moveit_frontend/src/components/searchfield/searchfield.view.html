@@ -1,0 +1,8 @@
+<ng2-completer
+    [(ngModel)]="content"
+    [datasource]="elements"
+    [minSearchLength]="0"
+    (keyup)="contentChangeNotify()"
+    (keydown)="contentChangeNotify()"
+    (change)="contentChangeNotify()"
+></ng2-completer>

@@ -1,0 +1,60 @@
+<span class="" style="cursor: pointer;"
+    (click)="openModal()">
+    <i class="fa fa-plus"></i>
+</span>
+<div class="modal" id="serverModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'insert_server'|translate}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body row">
+                <div *ngFor="let field of insertModel?.mandatory" class="col-6"  style="padding-top:5px">
+                    {{field}}<br/>
+                    <input type="text" [disabled]="requesting" class="form-control" [(ngModel)]="server.attributes[field]"/>
+                </div>
+                <div class="col-12">
+                    <hr/>
+                </div>
+                <div class="col-12" style="padding-top:5px" *ngIf="attributes.length > 0">
+                    <div class="row">
+                        <div class="col-6">
+                            {{'field_name'|translate}}
+                        </div>
+                        <div class="col-6">
+                            {{'field_value'|translate}}
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let field of attributes" class="col-12" style="padding-top:5px">
+                    <div class="row">
+                        <div class="col-6">
+                            <input [disabled]="requesting" type="text" class="form-control" [(ngModel)]="field.key" />
+                        </div>
+                        <div class="col-6">
+                            <input [disabled]="requesting" type="text" class="form-control" [(ngModel)]="field.value" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" style="padding-top:5px">
+                    <button [disabled]="requesting" (click)="addAttribute()" class="btn btn-default">
+                        <i class="fa fa-plus"></i> {{'new_field'|translate}}
+                    </button>
+                </div>
+
+                <div class="col-12" *ngIf="error_message.length > 0">
+                    <hr/>
+                    <span class="error">{{error_message}}</span><br/>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button [disabled]="requesting" (click)="save()" type="button" class="btn btn-default hover-red">
+                    {{'insert'|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

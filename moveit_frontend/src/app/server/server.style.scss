@@ -1,0 +1,43 @@
+@import '../../styles';
+@import '../dash/dash.style';
+
+.item-opt {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+}
+
+thead, tbody, tr, td, th {
+    display: block;
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 50px;
+}
+
+tbody {
+    height: 80vh;
+    overflow-y: auto;
+}
+
+tbody td, thead th {
+    float: left;
+    width: 10%;
+}
+
+thead th {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

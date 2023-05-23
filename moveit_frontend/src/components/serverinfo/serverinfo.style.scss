@@ -1,0 +1,35 @@
+@import '../../styles';
+
+h1 {
+    font-size: 26px;
+
+    i {
+        font-size: 22px;
+        margin-right: 10px;
+    }
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+    i {
+        margin-right: 15px;
+    }
+}
+
+.comment-ref {
+    cursor: pointer;
+    color: $blue;
+}
+
+.edit-icon {
+    float: right;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    font-size: 16px !important;
+    cursor: pointer;
+    color: $grey_dark;
+}

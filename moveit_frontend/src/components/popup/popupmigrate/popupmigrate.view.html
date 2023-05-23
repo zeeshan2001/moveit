@@ -1,0 +1,223 @@
+<div class="modal" id="{{modalId}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i style="margin-right:10px" class="fa fa-cog"></i>
+                    <span (click)="changeCat('inventory')">
+                        <button class="btn btn-default arrow-item" [ngClass]="{'blue':currentCat=='inventory'}">
+                            {{'inventory'|translate}}
+                        </button>
+                    </span>
+                    <span (click)="changeCat('planning')">
+                        <button [disabled]="!instance.inventory" class="btn btn-default arrow-item" [ngClass]="{'blue':currentCat=='planning'}">
+                            {{'planning'|translate}}
+                        </button>
+                    </span>
+                    <span (click)="changeCat('migration')">
+                        <button [disabled]="!instance.inventory || !instance.planned" class="btn btn-default arrow-item" [ngClass]="{'blue':currentCat=='migration'}">
+                            {{'migration'|translate}}
+                        </button>
+                    </span>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div *ngFor="let item of formElements; let i = index">
+                    <div *ngIf="item.category == currentCat && item.type=='attributes'">
+                        <inventory-app
+                            [key]="instance.servicename"
+                            [instanceAttributes]="instance.attributes"
+                            *ngIf="category === 'applications'"
+                            [category]="'applications'"
+                            (onDataChange)="inventoryDataChanged($event)"
+                        ></inventory-app>
+                    </div>
+                    <div *ngIf="item.category == currentCat && item.type=='attributes'">
+                        <inventory-app
+                            [key]="instance.name"
+                            [category]="'server'"
+                            [instanceAttributes]="instance.attributes"
+                            *ngIf="category === 'server'"
+                            (onDataChange)="inventoryDataChanged($event)"
+                        ></inventory-app>
+                    </div>
+
+
+                    <div class="row" *ngIf="item.category == currentCat && item.type=='boolean'">
+                        <div class="col-9">
+                            {{item.code|translate}}
+                        </div>
+                        <div class="col-3 text-right">
+                            <button (click)="setCheck(item.code, true)"
+                                [ngClass]="{'btn-blue': instance.workflow[item.code].checked === true}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'yes'|translate}}
+                            </button>
+                            <button (click)="setCheck(item.code, false)"
+                                [ngClass]="{'btn-red': instance.workflow[item.code].checked === false}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'no'|translate}}
+                            </button>
+                        </div>
+                        <div class="col-12">
+                            <br/>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="item.category == currentCat && item.type=='input'">
+                        <div class="col-9">
+                            {{item.code|translate}} 
+                            <div *ngIf="item.code === 'dependencies_known'">
+                                <div *ngIf="inputCheck1 === true || instance.workflow[item.code].checked == true ">
+                                    <input type="text" [(ngModel)]="instance.workflow[item.code].message">
+                                </div>
+                            </div>
+                            <div *ngIf="item.code === 'which_applications'">
+                                <div *ngIf="inputCheck2 === true || instance.workflow[item.code].checked == true">
+                                    <input type="text" [(ngModel)]="instance.workflow[item.code].message">
+                                </div>
+                            </div>
+                            <div *ngIf="item.code === 'latencies'">
+                                <div *ngIf="inputCheck3 === true || instance.workflow[item.code].checked == true">
+                                    <input type="text" [(ngModel)]="instance.workflow[item.code].message">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-right">
+                            <button (click)="setCheck(item.code, true)"
+                                [ngClass]="{'btn-blue': instance.workflow[item.code].checked === true}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'yes'|translate}}
+                            </button>
+                            <button (click)="setCheck(item.code, false)"
+                                [ngClass]="{'btn-red': instance.workflow[item.code].checked === false}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'no'|translate}}
+                            </button>
+                        </div>
+
+
+
+                        <div class="col-12">
+                            <div *ngIf="item.code === 'can_system_go_to_Frankfurt'" >
+                                <div *ngIf="thirdOptionTrue === true || instance.workflow[item.code].checked == true">
+                                    <p>{{item.true.quest1.code | translate}}</p>
+                                    <input type="text" [(ngModel)]="instance.workflow[item.code].message">
+                                </div>
+                                <div *ngIf="thirdOptionTrue === false || instance.workflow[item.code].checked == false">
+                                    <p>{{item.false.quest2.code | translate}}</p>
+                                    <input type="text" [(ngModel)]="instance.workflow[item.code].message1">
+                                    <p>{{item.false.quest3.code | translate}}</p>
+                                    <input type="text" [(ngModel)]="instance.workflow[item.code].message2" >
+                                </div>
+                            </div>
+                            <!--<input-->
+                                <!--[(ngModel)]="instance.workflow[item.code].message"-->
+                                <!--[hidden]="instance.workflow[item.code].checked === undefined" class="form-control"-->
+                                <!--*ngIf="item.attribute === undefined"/>-->
+                            <!--<input-->
+                                <!--[(ngModel)]="instance.workflow.attributes[item.attribute]"-->
+                                <!--[hidden]="instance.workflow[item.code].checked === undefined" class="form-control"-->
+                                <!--*ngIf="item.attribute !== undefined"/>-->
+                            <br/>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="row" *ngIf="item.category == currentCat && item.type=='datetime'">
+                        <div class="col-9">
+                            {{item.code|translate}}
+
+                        </div>
+                        <div class="col-3 text-right">
+                            <button (click)="setCheck(item.code, true)"
+                                [ngClass]="{'btn-blue': instance.workflow[item.code].checked === true}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'yes'|translate}}
+                            </button>
+                            <button (click)="setCheck(item.code, false)"
+                                [ngClass]="{'btn-red': instance.workflow[item.code].checked === false}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'no'|translate}}
+                            </button>
+                        </div>
+                        <div class="col-12" [hidden]="instance.workflow[item.code].checked != true">
+                            <div style="height:5px"></div>
+                            <label>
+                                From: <input class="form-control" [(ngModel)]="instance.workflow[item.code].date1"
+                                       [owlDateTimeTrigger]="dt1"
+                                       [owlDateTime]="dt1" />
+                                <owl-date-time #dt1></owl-date-time>
+                                To: <input class="form-control" [(ngModel)]="instance.workflow[item.code].date2"
+                                           [owlDateTime]="dt2"     [owlDateTimeTrigger]="dt2"/>
+                                <owl-date-time #dt2></owl-date-time>
+
+
+                            </label>
+                        </div>
+
+                        <div class="col-12"><div style="height:20px"></div></div>
+                    </div>
+
+
+                    <div class="row" *ngIf="item.category == currentCat && item.type=='server_move'">
+                        <div class="col-9">
+                            {{item.code|translate}}
+                        </div>
+                        <div class="col-3 text-right">
+                            <button (click)="setCheck(item.code, true)"
+                                [ngClass]="{'btn-blue': instance.workflow[item.code].checked === true}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'yes'|translate}}
+                            </button>
+                            <button (click)="setCheck(item.code, false)"
+                                [ngClass]="{'btn-red': instance.workflow[item.code].checked === false}"
+                                class="btn btn-default btn-sm btn-option">
+                                {{'no'|translate}}
+                            </button>
+                        </div>
+                        <div class="col-12" *ngIf="instance.workflow[item.code].checked === true">
+                            <div style="height:5px"></div>
+                            <form-moveserver
+                                [category]="category"
+                                [itemName]="itemName"
+                                [itemWorkflow]="instance.workflow[item.code].content"
+                                (contentChange)="contentChanged(item.code, 'content', $event)"
+                            ></form-moveserver>
+                        </div>
+                        <div class="col-12" *ngIf="instance.workflow[item.code].checked === false">
+                            <div style="height:5px"></div>
+                           <input [(ngModel)]="instance.workflow[item.code].message" [hidden]="instance.workflow[item.code].checked != false" class="form-control"/><br/>
+                        </div>
+                        <div class="col-12"><div style="height:20px"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button
+                    (click)="migrate()"
+                    type="button"
+                    class="btn btn-default hover-red"
+                    *ngIf="!readOnly"
+                    data-dismiss="modal">
+                    <span *ngIf="currentCat === 'inventory'">
+                        {{'inventory_finish'|translate}}
+                    </span>
+                    <span *ngIf="currentCat === 'planning'">
+                        {{'planning_finish'|translate}}
+                    </span>
+                    <span *ngIf="currentCat === 'migration'">
+                        {{'migration_finish'|translate}}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

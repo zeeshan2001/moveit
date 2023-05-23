@@ -1,0 +1,41 @@
+@import '../../styles';
+@import '../dash/dash.style';
+
+.server-close {
+    float: right;
+    color: white;
+    background-color: $blue_light !important;
+}
+
+.server-close:hover {
+    background-color: $blue !important;
+}
+
+table {
+    width: 100%;
+}
+
+thead, tbody, tr, td, th {
+    display: block;
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 50px;
+}
+
+tbody {
+    height: 80vh;
+    overflow-y: auto;
+}
+
+tbody td, thead th {
+    float: left;
+    width: 49%;
+}

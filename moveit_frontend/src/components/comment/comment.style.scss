@@ -1,0 +1,18 @@
+@import '../../styles';
+
+.comment {
+    padding: 10px;
+    background-color: $grey;
+    margin-top: 2px;
+
+    .message {
+        font-size: 14px;
+        color: grey;
+    }
+
+    .date {
+        float: right;
+        font-size: 14px;
+        color: grey;
+    }
+}

@@ -1,0 +1,53 @@
+<div class="row">  
+    <div class="col-12">
+        <h1><i class="fa fa-home"></i> {{'dashboard'|translate}}</h1>
+        <hr/>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <h2>{{'server'|translate}} {{'inventory'|translate}}:</h2>
+        <div class="doughnut-box">
+            <doughnut-chart [data]="completeServer"></doughnut-chart>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <h2>{{'apps'|translate}} {{'inventory'|translate}}:</h2>
+        <div class="doughnut-box">
+            <doughnut-chart [data]="completeApplications"></doughnut-chart>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <h2>{{'components'|translate}} {{'inventory'|translate}}:</h2>
+        <div class="doughnut-box">
+            <doughnut-chart [data]="completeComponents"></doughnut-chart>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <br/>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-4">
+        <h2>{{'server'|translate}} {{'process'|translate}}:</h2>
+        <div class="doughnut-box">
+            <doughnut-chart (clickEvent)="handleChartClickEventProgress('server', $event)" [data]="progressServer"></doughnut-chart>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <h2>{{'apps'|translate}} {{'process'|translate}}:</h2>
+        <div class="doughnut-box">
+            <doughnut-chart (clickEvent)="handleChartClickEventProgress('app', $event)" [data]="progressApplications"></doughnut-chart>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <h2>{{'components'|translate}} {{'process'|translate}}:</h2>
+        <div class="doughnut-box">
+            <doughnut-chart (clickEvent)="handleChartClickEventProgress('component', $event)" [data]="progressComponents"></doughnut-chart>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <br/>
+        <h2>{{'what_has_been_made'|translate}}:</h2>
+        <historybox [items]="history"></historybox>
+    </div>
+</div>

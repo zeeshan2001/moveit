@@ -1,0 +1,35 @@
+<div class="menu">
+    <ul>
+        <li class="header">
+            {{'appname'|translate}}
+        </li>
+        
+        <li class="item" routerLink="/dash" routerLinkActive="selected" (click)="menuClickHandler('')">
+            <i class="fa fa-home"></i> {{'dashboard'|translate}}
+        </li>
+        
+        <li class="item" routerLink="/app" routerLinkActive="selected" (click)="menuClickHandler('app')">
+            <i class="fa fa-desktop"></i> {{'apps'|translate}}
+        </li>
+
+        <li class="item" routerLink="/component" routerLinkActive="selected" (click)="menuClickHandler('component')">
+            <i class="fa fa-sitemap"></i> {{'components'|translate}}
+        </li>
+
+        <li class="item" routerLink="/migration" routerLinkActive="selected" (click)="menuClickHandler('migration')">
+            <i class="fa fa-cogs"></i> {{'migrations'|translate}}
+        </li>
+
+        <li class="item" routerLink="/server" routerLinkActive="selected" (click)="menuClickHandler('server')">
+            <i class="fa fa-server"></i> {{'server'|translate}}
+        </li>
+
+        <li class="item" routerLink="/calendar" routerLinkActive="selected" (click)="menuClickHandler('calendar')">
+            <i class="fa fa-calendar"></i> {{'calendar'|translate}}
+        </li>
+
+        <li class="item" (click)="menuClickHandler('logout')">
+            <i class="fa fa-sign-out"></i> {{'logout'|translate}}
+        </li>
+    </ul>
+</div>

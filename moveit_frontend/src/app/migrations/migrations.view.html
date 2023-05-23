@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-12">
+        <h1>
+            <i class="fa fa-server"></i> {{'migrations'|translate}}
+        </h1>
+        <hr/>
+    </div>
+    <div class="col-6" style="height:85vh; overflow-y: hidden;"> 
+        <span (click)="changeFilter('server')" 
+            [ngClass]="{'selected':chosenFilter=='server'}"
+            class="badge badge-secondary badge-filter-3">
+            {{'server'|translate}}
+        </span>
+        <span (click)="changeFilter('apps')"
+            [ngClass]="{'selected':chosenFilter=='apps'}"
+            class="badge badge-secondary badge-filter-3">
+            {{'apps'|translate}}
+        </span>
+        <span (click)="changeFilter('components')"
+            [ngClass]="{'selected':chosenFilter=='components'}"
+            class="badge badge-secondary badge-filter-3">
+            {{'components'|translate}}
+        </span>
+        <table class="table table-hover" *ngIf="chosenFilter!='apps'">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th style="width:35%; overflow-wrap: break-word;">{{'name'|translate}}</th>
+                    <th>{{'type'|translate}}</th>
+                    <th><i class="fa fa-info"></i></th>
+                    <th><i class="fa fa-desktop"></i></th>
+                    <th><i class="fa fa-sitemap"></i></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="getItem(i)" 
+                        class="item" 
+                        [ngClass]="{'marked': tableIndex==i}"
+                        *ngFor="let server of servers; let i = index;">
+                        
+                    <td>{{i+1}}</td>
+                    <td style="width:35%; overflow-wrap: break-word;">{{server.name}}</td>
+                    <td style="overflow: hidden">{{server.type|translate}}</td>
+                    <td class="text-right">{{server.attributes_length}}</td>
+                    <td class="text-right">{{server.applications.length}}</td>
+                    <td class="text-right">{{server.components.length}}</td>
+                    <td>
+                        <status-flag
+                            style="float: right;"
+                            [migrated]="server.migrated"
+                            [status]="server.status"
+                            [inventory]="server.inventory"
+                            [width]="15"
+                        ></status-flag> 
+                    </td>
+                </tr>
+            </tbody>
+       </table>
+       <table class="table table-hover" *ngIf="chosenFilter=='apps'">
+            <thead>
+                <tr>
+                    <th style="width:80%;">{{'app_name'|translate}}</th>
+                    <th style="width:20%;"># {{'server'|translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="chooseApplication(i)" class="item" *ngFor="let app of migratedApps; let i = index;">
+                    <td style="width:80%;">{{app.app_name}}</td>
+                    <td style="width:20%;" class="text-right">{{app.count}}</td>
+                </tr>
+            </tbody>
+       </table>
+    </div>
+    <div *ngIf="server" class="col-6" style="height:85vh; overflow-y: scroll;">
+        <server-info *ngIf="chosenFilter=='server'" (notifyParent)='reload()' [server]="server"></server-info>
+        <component-info *ngIf="chosenFilter=='components'" (notifyParent)='reload()' [server]="server"></component-info>
+    </div>
+</div>

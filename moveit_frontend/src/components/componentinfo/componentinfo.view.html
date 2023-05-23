@@ -1,0 +1,71 @@
+<popup-migrate
+    *ngIf="currentFlagItem.type == 'server'"
+    (onMigrate)="onMigrate($event)"
+    [category]="'server'"
+    [modalId]="'myModalServer'"
+    [readOnly]="server.migrated || server.status==='done'"
+    [instance]="server"
+></popup-migrate>
+<popup-migrate
+    *ngIf="currentFlagItem.type == 'applications'"
+    (onMigrate)="onMigrate($event)"
+    [category]="'applications'"
+    [modalId]="'myModalApp'"
+    [readOnly]="currentFlagItem.obj.migrated || currentFlagItem.obj.status==='done'"
+    [instance]="currentFlagItem.obj"
+></popup-migrate>
+<h2>{{server.type|translate}}: <b>{{server.name}}</b>
+    <button (click)="removeServer()" style="float:right" class="btn btn-default">
+        <i class="fa fa-trash"></i>
+    </button>
+</h2>
+
+
+<hr/>
+<h3>
+    <i class="fa fa-info"></i> {{'attributes'|translate}}
+<!--     <i class="fa fa-pencil edit-icon"></i> -->
+</h3>
+<div>
+    {{'status'|translate}}:
+    <status-flag
+        (click)="startMigration('server', server)"
+        style="float: right;"
+        [migrated]="server.migrated"
+        [status]="server.status"
+        [inventory]="server.inventory"
+        [width]="15">
+    </status-flag>  
+</div>
+<div *ngIf="server.attributes">
+    <div *ngFor="let key of Object.keys(server.attributes)">
+        <div *ngIf="key != 'name' && key != 'servicename'">
+            {{key}}: <span style="float:right">{{server.attributes[key]}}</span>
+        </div>
+    </div>
+</div>
+<div *ngIf="!server.attributes || Object.keys(server.attributes).length===0">
+    {{'no_data'|translate}}
+</div>
+
+<hr/>
+
+
+<h3>
+    <i class="fa fa-comment-o"></i> {{'comments'|translate}}
+</h3>
+<div>
+    <input
+        [(ngModel)]="comment_compose.message"
+        (keyup.enter)="submitComment()"
+        style="text-align: left"
+        type="text"
+        class="form-control" />
+    <span style="color: grey; font-size:14px;" *ngIf="comment_compose.reference.length > 0">
+        <i class="fa fa-map-pin"></i> {{comment_compose.reference}}
+    </span>
+</div>
+
+<div *ngFor="let comment of server.comments">
+    <user-comment [comment]="comment"></user-comment>
+</div>

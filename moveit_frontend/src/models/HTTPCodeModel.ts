@@ -1,0 +1,10 @@
+export var HTTPCode = {
+    OK: 200,
+    CREATED: 201,
+    ACCEPTED: 202,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    NOT_ACCEPTABLE: 406,
+    ERROR: 500
+};

@@ -1,0 +1,31 @@
+@import '../../styles';
+
+.list-item {
+	border: 1px solid $grey;
+	padding: 10px;
+	overflow: hidden;
+
+	.header {
+		font-weight: bold;
+		font-style: 18px;
+	}
+
+	.subheader {
+		font-style: 16px;
+	}
+
+	.description {
+		width: 100%;
+		font-size: 14px;
+		color: $grey_dark;
+		
+		.status {
+			float: right;
+		}
+	}
+}
+
+.list-item:hover {
+	background-color: $grey_light;
+	cursor: pointer;
+}

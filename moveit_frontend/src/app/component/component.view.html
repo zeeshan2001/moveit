@@ -1,0 +1,79 @@
+<div class="row">
+	<div class="col-12">
+		<h1><i class="fa fa-sitemap"></i> {{'components'|translate}} ({{servers.length}})</h1>
+		<hr/>
+	</div>
+    <div class="col-5" style="height:85vh; overflow-y: hidden;">
+        <span (click)="changeFilter('open')" 
+            [ngClass]="{'selected':chosenFilter=='open'}"
+            class="badge badge-secondary badge-filter-4">
+            {{'open'|translate}}
+        </span>
+        
+        <span (click)="changeFilter('progress')"
+            [ngClass]="{'selected':chosenFilter=='progress'}"
+            class="badge badge-secondary badge-filter-4">
+            {{'progress'|translate}}
+        </span>
+        
+        <span (click)="changeFilter('done')"
+            [ngClass]="{'selected':chosenFilter=='done'}"
+            class="badge badge-secondary badge-filter-4">
+            {{'done'|translate}}
+        </span>
+
+        <span (click)="changeFilter('error')"
+            [ngClass]="{'selected':chosenFilter=='error'}"
+            class="badge badge-secondary badge-filter-4">
+            {{'error'|translate}}
+        </span>
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th (click)="filterTableByAttribute('name', false, '')"
+                        style="width:35%; overflow-wrap: break-word;">
+                        {{'name'|translate}}
+                        <i *ngIf="filterName==='name' && filterOrder" class="fa fa-chevron-down"></i>
+                         <i *ngIf="filterName==='name' && !filterOrder" class="fa fa-chevron-up"></i>
+                    </th>
+                    <th (click)="filterTableByAttribute('type', false, '')"
+                        style="width:25%; overflow-wrap: break-word;">
+                        {{'type'|translate}}
+                        <i *ngIf="filterName==='type' && filterOrder" class="fa fa-chevron-down"></i>
+                         <i *ngIf="filterName==='type' && !filterOrder" class="fa fa-chevron-up"></i>
+                    </th>
+                    <th>
+                        <i (click)="filterTableByAttribute('attributes_length', false, '')"
+                        class="fa fa-info"></i>
+                        <i *ngIf="filterName==='attributes_length' && filterOrder" class="fa fa-chevron-down"></i>
+                         <i *ngIf="filterName==='attributes_length' && !filterOrder" class="fa fa-chevron-up"></i>
+                    </th>
+                    <th>
+                        <i (click)="filterTableByAttribute('inventory', false, '')"
+                        class="fa fa-list"></i>
+                        <i *ngIf="filterName==='inventory' && filterOrder" class="fa fa-chevron-down"></i>
+                         <i *ngIf="filterName==='inventory' && !filterOrder" class="fa fa-chevron-up"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="getServer(i)" 
+                        class="item" 
+                        [ngClass]="{'marked': tableIndex==i}"
+                        *ngFor="let server of servers; let i = index;">
+                        
+                    <td>{{i+1}}</td>
+                    <td style="width:35%; overflow-wrap: break-word;">{{server.name}}</td>
+                    <td style="width:25%; overflow-wrap: break-word;">{{server.type|translate}}</td>
+                    <td class="text-right">{{server.attributes_length}}</td>
+                    <td><i *ngIf="server.inventory" class="fa fa-check"></i></td>
+                </tr>
+            </tbody>
+       </table>
+    </div>
+    <div *ngIf="server" class="col-7" style="height:85vh; overflow-y: scroll;">
+        <component-info (notifyParent)='reloadServer()' [server]="server"></component-info>
+    </div>
+</div>

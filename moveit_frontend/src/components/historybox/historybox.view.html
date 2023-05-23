@@ -1,0 +1,23 @@
+<div class="history-box">
+    <div class="entry" *ngFor="let item of items; let i = index">
+        <div class="row">
+            <div class="col-1 text-center">
+                <i *ngIf="item.type==='server'" class="fa fa-server"></i>
+                <i *ngIf="item.type==='application'" class="fa fa-desktop"></i>
+                <i *ngIf="item.type==='component'" class="fa fa-sitemap"></i>
+            </div>
+            <div class="col-11">
+                <div class="row">
+                    <div class="col-8">
+                        <b>{{item.instance_name}}</b><br/>
+                        {{'new_status'|translate}}: <span class="done">{{item.action_tag|translate}}</span>
+                    </div>
+                    <div class="col-4 text-right right">
+                       {{item.createdAt|date: ('datetimeformat_pipe'|translate)}} <br/>
+                       <i class="fa fa-user"></i> {{item.username}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

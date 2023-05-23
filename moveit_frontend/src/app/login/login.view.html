@@ -1,0 +1,45 @@
+<div class="login-background">
+	<div class="container">
+		<div class="login-box">
+			<i class="fa fa-user user-icon"></i>
+			
+			<h1>{{'appname' | translate}} - {{'login' | translate}}</h1>
+
+			<input placeholder="{{'email' | translate}}"
+				class="form-control"
+				[(ngModel)]="login_data.username"
+				type="text" />
+			
+			<div class="spacing"></div>
+
+			<input placeholder="{{'password' | translate}}"
+				class="form-control"
+				[(ngModel)]="login_data.password"
+				type="password" />
+
+			<div class="spacing"></div>
+
+			<select class="form-control" [(ngModel)]="login_data.language">
+				<option *ngFor="let lang of languageList; let i = index"
+					value={{lang.code}}>
+					{{lang.title}}
+				</option>
+			</select>
+
+			<div *ngIf="error_message">
+				<br/>
+				<span class="error">{{error_message}}</span>
+			</div>
+
+			<div class="text-center">
+				<button [disabled]="attempting" 
+					(click)="loginAttempt(login_data)"
+					class="btn btn-default login">
+					
+					<i class="fa fa-sign-in"></i> {{'login' | translate}}
+				</button>
+			</div>
+		</div>
+	</div>
+	<span class="version">{{'version'|translate}}</span>
+</div>

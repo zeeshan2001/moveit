@@ -1,0 +1,22 @@
+@import '../../styles';
+@import '../dash/dash.style';
+
+h1 {
+    font-size: 26px;
+
+    i {
+        font-size: 22px;
+        margin-right: 10px;
+    }
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.doughnut-box {
+    margin-top: 0px;
+    background-color: $grey_light;
+    padding: 15px;
+    text-align: center;
+}

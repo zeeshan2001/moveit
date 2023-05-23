@@ -1,0 +1,145 @@
+<popup-migrate
+    *ngIf="currentFlagItem.type == 'server'"
+    (onMigrate)="onMigrate($event)"
+    [category]="'server'"
+    [modalId]="'myModalServer'"
+    [readOnly]="server.migrated || server.status==='done'"
+    [instance]="server"
+></popup-migrate>
+<popup-migrate
+    *ngIf="currentFlagItem.type == 'applications'"
+    (onMigrate)="onMigrate($event)"
+    [category]="'applications'"
+    [modalId]="'myModalApp'"
+    [readOnly]="currentFlagItem.obj.migrated || currentFlagItem.obj.status==='done'"
+    [instance]="currentFlagItem.obj"
+></popup-migrate>
+<h2>{{server.type|translate}}: <b>{{server.name}}</b>
+    <button (click)="removeServer()" style="float:right" class="btn btn-default">
+        <i class="fa fa-trash"></i>
+    </button>
+</h2>
+
+
+<hr/>
+<h3>
+    <i class="fa fa-info"></i> {{'attributes'|translate}}
+<!--     <i class="fa fa-pencil edit-icon"></i> -->
+</h3>
+<div>
+    {{'status'|translate}}:
+        <status-flag
+            (click)="startMigration('server', server)"
+            style="float: right;"
+            [migrated]="server.migrated"
+            [status]="server.status"
+            [inventory]="server.inventory"
+            [width]="15"
+        ></status-flag>
+</div>
+<div *ngFor="let key of serverAttributes">
+    <div *ngIf="key !== 'name' && key!=='verbleib_selected' && key!=='arbeitspaket_selected'">
+        <ng-container *ngIf="(key === 'verbleib' || key === 'arbeitspaket') else default">
+
+            <span style="width: 300px;display: inline-block;"> {{key |titlecase }}: </span>
+
+            <select style="-webkit-appearance: menulist-button !important;" [name]="key" [id]="key" (change)="changeAttribute(key, server._id, $event)">
+
+                    <option *ngFor="let item of Object.keys(server.attributes[key]) let i=index"
+                            value="{{server.attributes[key][i]}}"
+[selected]="key === 'verbleib' ? server.attributes[key][i] === server['attributes']['verbleib_selected'] ? 'selected' : null :
+server.attributes[key][i] === server['attributes']['arbeitspaket_selected'] ? 'selected' : null "
+                    >
+                        {{server.attributes[key][i]}}
+                    </option>
+            </select>
+
+        </ng-container>
+
+        <ng-template #default>
+            <div>
+                <span style="width: 300px;display: inline-block;" *ngIf="key == 'domäne'"> Domäne: </span>
+                <span style="width: 300px;display: inline-block;" *ngIf="key == 'preisindikation für ersatz'"> Preisindikation für Ersatz: </span>
+                <span style="width: 300px;display: inline-block;" *ngIf="key !== 'preisindikation für ersatz' && key !== 'domäne'" > {{key | titlecase}}: </span>
+                <span>{{server.attributes[key]}}</span>
+
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+<div *ngIf="Object.keys(server.attributes).length===0">
+    {{'no_data'|translate}}
+</div>
+
+
+<hr/>
+
+
+<h3>
+    <i class="fa fa-desktop"></i> {{'apps'|translate}}
+    <popup-application
+        style="float:right"
+        [modalID]="'appInsertModal'"
+        [server]="server"
+        (onSave)="notifyParentFunction({})"
+    ></popup-application>
+</h3>
+<div *ngFor="let app of server.applications; let i = index;">
+    <div class="row">
+        <div class="col-3">
+            servicename
+        </div>
+        <div class="col-8 text-right nopadding">
+            {{app.servicename}} <i (click)="setReference(app.servicename)" class="fa fa-at comment-ref"></i>
+        </div>
+        <div class="col-1">
+            <status-flag
+                (click)="startMigration('applications', app)"
+                [migrated]="app.migrated"
+                [status]="app.app_status"
+                [inventory]="app.inventory"
+                [width]="15"
+            ></status-flag>
+        </div>
+    </div>
+    <div *ngFor="let key of Object.keys(app.attributes||{}); let j = index;">
+        <div class="row" *ngIf="key != 'name' && key != 'servicename' && key != 'app_status'">
+            <div class="col-3">
+                {{key}}
+            </div>
+            <div class="col-8 text-right nopadding">
+                {{app.attributes[key]}}
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
+<div *ngIf="server.applications.length===0">
+    {{'no_data'|translate}}
+</div>
+
+
+<hr/>
+
+
+<h3>
+    <i class="fa fa-comment-o"></i> {{'comments'|translate}}
+</h3>
+<div>
+    <input
+        [(ngModel)]="comment_compose.message"
+        (keyup.enter)="submitComment()"
+        style="text-align: left"
+        type="text"
+        class="form-control" />
+    <span style="color: grey; font-size:14px;" *ngIf="comment_compose.reference.length > 0">
+        <i class="fa fa-map-pin"></i> {{comment_compose.reference}}
+    </span>
+</div>
+
+<div *ngFor="let comment of server.comments">
+    <user-comment [comment]="comment"></user-comment>
+</div>

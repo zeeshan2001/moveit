@@ -1,0 +1,15 @@
+<!-- <div
+	*ngIf="migrated && status === 'progress'"
+	class="flag-item"
+	style="background-color: #f39c12"
+	[style.width]="width+'px'"
+	[style.height]="width+'px'"
+	(click)="notifyFlagClick()"
+>&nbsp;</div> -->
+<div
+	class="flag-item"
+	[style.background-color]="getColor()"
+	[style.width]="width+'px'"
+	[style.height]="width+'px'"
+	(click)="notifyFlagClick()"
+>&nbsp;</div>

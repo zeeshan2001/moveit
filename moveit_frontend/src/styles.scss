@@ -1,0 +1,149 @@
+@import 'node_modules/angular2-toaster/src/toaster';
+/**
+ *  Globally used custom CSS code.
+ *  Can be included everywhere to keep e.g. the colors same.
+ *  Managing global settings.
+ */
+
+
+/* Colors */
+$grey: #ecf0f1;
+$grey_light: #f4f4f4;
+$grey_dark: #AAAAAA;
+
+$font_color: #2c3e50;
+$error_color: #e74c3c;
+
+$blue: #2980b9;
+$blue_light: #3498db;
+$blue_dark: #216491;
+
+$red: #c0392b;
+$red_dark: #c0392b;
+
+
+html, body {
+    width: 100%;
+    margin: 0 auto;
+    color: $font_color;
+    background-color: $grey;
+}
+
+h1, h2, h3, h4, h5 {
+    color: $font_color;
+}
+
+input, select, .searchfield input {
+    background-color: $grey;
+    color: grey;
+    text-align: center;
+}
+
+searchfield input {
+    text-align: left !important;
+    width: 100% !important;
+}
+
+input:focus, select:focus {
+    background-color: $grey_light;
+    color: grey;
+    border-color: #ecf0f1;
+    box-shadow: inset 0 1px 1px $grey, 0 0 8px white;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.toast-info {
+    background-color: black;
+}
+
+.toast-success {
+    background-color: $blue;
+}
+
+.toast-error {
+    background-color: $error_color;
+}
+
+.nopadding {
+    padding: 0 !important;
+    width: 0 !important;
+}
+
+.btn-blue {
+    margin-right: 10px;
+    background-color: $blue_light;
+    color: white;
+
+    i {
+        font-size: 14px;
+    }
+}
+
+.btn-blue:hover {
+    background-color: $blue;
+}
+
+.btn-default:hover {
+    background-color: $grey_light;
+}
+
+.hover-red:hover {
+    background-color: $error_color;
+    color: white;
+}
+
+thead tr {
+    cursor: pointer;
+}
+
+.insert-button {
+    background-color: $blue !important;
+
+    i {
+        padding: 0px;
+        margin: 0px;
+        font-size: 12px;
+    }
+}
+
+.insert-button:hover {
+    background-color: $blue_light !important;
+}
+
+.cdk-overlay-container {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    z-index: 9999999 !important;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    z-index: 9999999 !important;
+}
+
+
+.fc-sat, .fc-sun {
+    background-color: #ecf0f1;
+}

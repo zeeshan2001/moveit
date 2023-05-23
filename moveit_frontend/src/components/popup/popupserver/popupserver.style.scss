@@ -1,0 +1,15 @@
+@import '../../../styles';
+
+input {
+	text-align: left !important;
+	padding: 5px;
+}
+
+.modal-body {
+	font-size: 18px;
+}
+
+.error {
+	color: $error_color;
+	font-size: 14px;
+}

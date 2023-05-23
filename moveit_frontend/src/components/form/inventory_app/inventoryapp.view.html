@@ -1,0 +1,65 @@
+<div class="col-12" *ngIf="showServer">
+    {{'server'|translate}}
+    <searchfield *ngIf="!givenServerName" (contentChange)="setServerName($event)" [content]="server_name"></searchfield>
+    <input type="text"
+        *ngIf="givenServerName"
+        [(ngModel)]="givenServerName"
+        [disabled]="true"
+        class="form-control"/>
+</div>
+<div class="col-12">
+    <div class="row">
+        <div *ngFor="let field of insertModel?.mandatory" class="col-6" style="padding-top:5px">
+            {{field}}<br/>
+            <input type="text"
+                (keyup)="sendDataToParent()"
+                [(ngModel)]="attributes_mandatory[field]"
+                [disabled]="requesting"
+                class="form-control"/>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <hr/>
+</div>
+
+<div class="col-12" style="padding-top:5px" *ngIf="attributes && attributes.length > 0">
+    <div class="row">
+        <div class="col-6">
+            {{'field_name'|translate}}
+        </div>
+        <div class="col-6">
+            {{'field_value'|translate}}
+        </div>
+    </div>
+</div>
+<div *ngFor="let field of attributes" class="col-12" style="padding-top:5px">
+    <div class="row">
+        <div class="col-6">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input 
+                (keyup)="sendDataToParent()"
+                [disabled]="requesting"
+                type="text"
+                class="form-control"
+                [(ngModel)]="field.key" />
+        </div>
+        <div class="col-6">
+            <input
+                (keyup)="sendDataToParent()"
+                [disabled]="requesting"
+                type="text"
+                class="form-control"
+                [(ngModel)]="field.value" />
+        </div>
+    </div>
+</div>
+<div class="col-12" style="padding-top:5px">
+    <button [disabled]="requesting" (click)="addAttribute()" class="btn btn-default">
+        <i class="fa fa-plus"></i> {{'new_field'|translate}}
+    </button>
+</div>

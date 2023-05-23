@@ -1,0 +1,41 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha 'test/apiTest.js' --recursive",
+    "start": "nodemon main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "array-find-duplicates": "^1.0.1",
+    "array-unique": "^0.3.2",
+    "async": "^2.6.1",
+    "bcrypt": "^3.0.6",
+    "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "exceljs": "^1.6.3",
+    "express": "^4.16.4",
+    "ftp-deploy": "^2.3.6",
+    "jsonwebtoken": "^8.4.0",
+    "ldapjs": "^1.0.2",
+    "mkdirp": "^0.5.1",
+    "mongoose": "^5.3.16",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "should": "^13.2.3",
+    "socket.io": "^2.2.0",
+    "swagger-jsdoc": "^3.2.6",
+    "swagger-node-express": "^2.1.3",
+    "swagger-ui-express": "^4.0.2",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "supertest": "^3.4.2"
+  }
+}

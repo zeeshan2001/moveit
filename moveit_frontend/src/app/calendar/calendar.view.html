@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fa fa-calendar"></i> {{'calendar'|translate}}</h1>
+        <hr/>
+    </div>
+    <div class="col-9" *ngIf="chosenServer !== null">
+        <server-info
+            *ngIf="chosenFilter==='server' || chosenFilter==='---'"
+            (notifyParent)='reloadServer()'
+            [server]="chosenServer">
+        </server-info>
+        <component-info
+            *ngIf="chosenFilter==='component'"
+            (notifyParent)='reloadServer()'
+            [server]="chosenServer">
+        </component-info>
+    </div>
+    <div class="col-9" *ngIf="chosenServer === null && eventsLoaded">
+        <div class="row">
+            <span style="margin-left:15px" (click)="changeFilter('server')"
+                [ngClass]="{'selected':chosenFilter=='server'}"
+                class="badge badge-secondary badge-filter-3">
+                {{'server'|translate}}
+            </span>
+
+            <span (click)="changeFilter('app')"
+                [ngClass]="{'selected':chosenFilter=='app'}"
+                class="badge badge-secondary badge-filter-3">
+                {{'app'|translate}}
+            </span>
+
+            <span (click)="changeFilter('component')"
+                [ngClass]="{'selected':chosenFilter=='component'}"
+                class="badge badge-secondary badge-filter-3">
+                {{'components'|translate}}
+            </span>
+        </div>
+        <calendar-wrapper
+            (notifyParentChosenDay)="dayClicked($event)"
+            (notifyCurrentDate)="fetchDataFor($event)"
+            [entries]="calendarContent"
+            [events]="calenderEvents"
+            ></calendar-wrapper>
+    </div>
+    <div class="col-3" *ngIf="chosenFilter !=='app'">
+        <div *ngIf="chosenServer !== null">
+            <button (click)="closeServer()" class="btn btn-default server-close">&times;</button><br/><br/>
+        </div>
+        <div class="row" *ngIf="resultsForDay.start.length > 0 && chosenFilter!=='---'">
+            <div class="col-12">
+                <div class="starting">
+                    {{'starting'|translate}}
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let instance of resultsForDay.start; let i = index;" style="cursor: pointer">
+            <div class="row" (click)="getServer(instance._id)">
+                <div class="col-10">
+                    {{instance.name}}
+                </div>
+                <div class="col-2">
+                    <status-flag
+                        [migrated]="instance.migrated"
+                        [status]="instance.status"
+                        [inventory]="instance.inventory"
+                        [width]="15"
+                    ></status-flag>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="resultsForDay.end.length > 0 && chosenFilter!=='---'">
+            <div class="col-12">
+                <div class="ending">
+                    {{'ending'|translate}}
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let instance of resultsForDay.end; let i = index;" style="cursor: pointer">
+            <div class="row" (click)="getServer(instance._id)">
+                <div class="col-10">
+                    {{instance.name}}
+                </div>
+                <div class="col-2">
+                    <status-flag
+                        [migrated]="instance.migrated"
+                        [status]="instance.status"
+                        [inventory]="instance.inventory"
+                        [width]="15"
+                    ></status-flag>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-3" *ngIf="chosenFilter ==='app'">
+        <div class="row" *ngIf="resultsForDayApp.start.length > 0">
+            <div class="col-12">
+                <div class="starting">
+                    {{'starting'|translate}}
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let instance of resultsForDayApp.start; let i = index;" style="cursor: pointer">
+            <div class="row" (click)="getServerForApp(instance.servicename)">
+                <div class="col-12">
+                    {{instance.servicename}}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="resultsForDayApp.end.length > 0">
+            <div class="col-12">
+                <div class="ending">
+                    {{'ending'|translate}}
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let instance of resultsForDayApp.end; let i = index;" style="cursor: pointer">
+            <div class="row" (click)="getServerForApp(instance.servicename)">
+                <div class="col-12">
+                    {{instance.servicename}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

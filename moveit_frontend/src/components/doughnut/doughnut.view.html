@@ -1,0 +1,10 @@
+<div style="display: block">
+	<canvas baseChart
+		[data]="data"
+		[labels]="labels"
+		[chartType]="type"
+		[options]="options"
+		(chartClick)="catchChartEvent($event)"
+		[colors]="colors"></canvas>
+		<div class="chart-label">{{data[2]}}/{{data[0]+data[1]}}</div>
+</div>

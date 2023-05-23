@@ -1,0 +1,39 @@
+@import '../../styles';
+@import '../dash/dash.style';
+
+h1 {
+    font-size: 26px;
+
+    i {
+        font-size: 22px;
+        margin-right: 10px;
+    }
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.starting {
+    text-align: center;
+    background-color: #f1c40f;
+    color: white;
+    padding: 5px;
+}
+
+.ending {
+    text-align: center;
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.server-close {
+    color: white;
+    background-color: $blue_light !important;
+}
+
+.server-close:hover {
+    background-color: $blue !important;
+}

@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-12">
+        <h1>
+            <i class="fa fa-desktop"></i> {{'apps'|translate}} ({{apps.length}})
+            <popup-application (onSave)="applyChangesById($event)" style="float:right"></popup-application>
+        </h1>
+        <hr/>
+    </div>
+    <div class="col-7" *ngIf="server" style="height:85vh; overflow-y: scroll;">
+        <server-info (notifyParent)='serverUpdated($event)' [server]="server"></server-info>
+    </div>
+    <div class="col-7" *ngIf="!server" style="height:85vh; overflow-y: hidden;">
+        <span (click)="changeFilter('open')"
+            [ngClass]="{'selected':chosenFilter=='open'}"
+            class="badge badge-secondary badge-filter-3">
+            {{'open'|translate}}
+        </span>
+
+        <span (click)="changeFilter('progress')"
+            [ngClass]="{'selected':chosenFilter=='progress'}"
+            class="badge badge-secondary badge-filter-3">
+            {{'progress'|translate}}
+        </span>
+
+        <span (click)="changeFilter('error')"
+            [ngClass]="{'selected':chosenFilter=='error'}"
+            class="badge badge-secondary badge-filter-3">
+            {{'error'|translate}}
+        </span>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'app_name'|translate}}</th>
+                    <th>{{'count'|translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr [ngClass]="{'marked': tableIndex==i}" (click)="chooseApplication(i)" class="item" *ngFor="let app of apps; let i = index;">
+                    <td>{{app.app_name}}</td>
+                    <td class="text-right">{{app.count}}</td>
+                </tr>
+            </tbody>
+       </table>
+    </div>
+    <div *ngIf="chosenApp.app_name && chosenApp.app_name.length > 0"
+        class="col-5"
+        style="height:85vh; overflow-y: scroll;">
+        <h2>
+            {{'app'|translate}}:
+            <button (click)="closeServer()" class="btn btn-default server-close">&times;</button><br/>
+            <b>{{chosenApp.app_name}}</b>
+        </h2>
+        <hr/>
+
+        <h3><i class="fa fa-server"></i> {{'server'|translate}}</h3>
+        <div *ngIf="chosenApp.instances.length===0">
+            {{'no_data'|translate}}
+        </div>
+        <div *ngFor="let instance of chosenApp.instances; let i = index;" style="cursor: pointer">
+            <div class="row" (click)="getServer(instance._id)">
+                <div class="col-3">
+                    {{'name'|translate}}
+                </div>
+                <div class="col-7 text-right nopadding">
+                    {{instance.name}}
+                </div>
+                <div class="col-2">
+                    <status-flag
+                        [migrated]="instance.migrated"
+                        [status]="instance.status"
+                        [inventory]="instance.inventory"
+                        [width]="15"
+                    ></status-flag>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

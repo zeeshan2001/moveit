@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fa fa-upload"></i> {{'upload'|translate}}</h1>
+        <hr/>
+    </div>
+    <div class="col-4" style="height:85vh; overflow-y: scroll;">
+        <div *ngIf="fileContent.length === 0">
+            <div (click)="addFiles.click()"
+                href="#"
+                class="list-group-item col-md-12 col-sm-12 uploadButton">
+                <label>
+                    <i class="fa fa-plus"></i> {{'add'|translate}}
+                </label>
+                <input type="file"
+                    (change)="getFilesAsBase64($event)"
+                    class="uploadInput"
+                    accept=""
+                    #addFiles>
+            </div>
+            <file-list
+                [files]="availableFiles"
+                (clickFileEvent)='chooseFileFromList($event)'>
+            </file-list>
+        </div>
+        <div *ngIf="fileContent.length !== 0" class="options">
+            <button class="btn btn-default" (click)="resetFileContent()">
+                <i class="fa fa-chevron-left"></i> {{'back'|translate}}
+            </button>
+            <span *ngFor="let sheet of chosenFile.sheets; let i = index">
+                <span *ngIf="chosenFileIndex.sheetId == sheet.id">
+                    <span class="title">
+                        {{sheet.name}}
+                    </span>
+                </span>
+            </span>
+            <hr/>
+            <!-- <div class="row">
+                <div class="col-12">
+                    {{'type'|translate}}<br/>
+                    <select class="form-control" [(ngModel)]="extractModel.type">
+                        <option value="server">
+                            {{'server'|translate}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <br/>{{'key'|translate}} ({{'column'|translate}})
+                    <input class="form-control" type="number" [(ngModel)]="extractModel.key_index" />
+                </div>
+                <div class="col-6">
+                    <br/>{{'header'|translate}} ({{'row'|translate}})
+                    <input class="form-control" type="number" [(ngModel)]="extractModel.header_index" />
+                </div>
+                <div class="col-12">
+                    <hr/>
+                    <button style="width:32%" class="btn btn-info btn-blue">{{'apply'|translate}}</button>
+                    <button style="width:32%" class="btn btn-default hover-red">{{'execute'|translate}}</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-8" style="height:85vh; overflow-y: scroll;">
+        <div class="text-center" *ngIf="fileContent.length === 0">
+            <br/><br/>{{'click_item_from_table_to_edit' |translate}}
+        </div>
+        <table class="table table-responsive table-hover">
+            <tbody>
+                <tr *ngFor='let row of fileContent; let i = index'>
+                    <td *ngFor='let column of row; let j = index'>
+                            {{column}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
